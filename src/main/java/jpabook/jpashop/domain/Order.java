@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -16,6 +18,18 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    // 양방향 연관관계
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItem = new ArrayList<>(); // arrayList 객체를 생성하는 것은 jpa 관례임.
+
+    public List<OrderItem> getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(List<OrderItem> orderItem) {
+        this.orderItem = orderItem;
+    }
 
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
