@@ -1,9 +1,8 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -15,6 +14,20 @@ public class Item {
     private String name;
     private int price;
     private int stockQuantity;
+
+    //다대다 양방향 매핑
+    // 실무에서는 안쓰는 것을 추천한다..(중간 테이블에 컬럼 등을 추가할 수가 없다)
+    // 다대다 대신 다대일, 일대다로 매핑하는 것을 추천한다.
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
     public Long getId() {
         return id;

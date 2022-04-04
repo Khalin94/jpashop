@@ -35,6 +35,20 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    // 일대일 양방향 매핑
+    // 연관관계의 주인이다.(foreign key 관리)
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
+
     public Long getId() {
         return id;
     }
