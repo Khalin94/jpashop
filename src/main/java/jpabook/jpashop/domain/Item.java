@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // 조인 전략으로 상속
+public abstract class Item extends BasedEntity{ // 해당 엔티티를 직접 만들일이 없으므로 추상클래스로 만든다.
 
     @Id
     @GeneratedValue
@@ -59,5 +60,17 @@ public class Item {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", stockQuantity=" + stockQuantity +
+                ", categories=" + categories +
+                "} " + super.toString();
     }
 }
